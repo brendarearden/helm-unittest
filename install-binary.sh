@@ -3,10 +3,12 @@
 # borrowed from https://github.com/technosophos/helm-template
 # downloadFile downloads the latest binary package and also the checksum
 # for that binary.
+PROJECT_NAME="helm-unittest"
+
 downloadFile() {
-  # Always use version from plugin.yaml for the download url~
-  DOWNLOAD_URL="https://github.com/rancher/helm-unittest/releases/download/$HELM_UNITTEST_VERSION/helm-unittest-linux-$ARCH.tgz"
-  PLUGIN_TMP_FILE="/tmp/helm-unittest.tgz"
+  # Always use version from plugin.yaml for the download url
+  DOWNLOAD_URL="https://github.com/rancher/helm-unittest/releases/download/$CATTLE_HELM_UNITTEST_VERSION/$PROJECT_NAME-linux-$ARCH.tgz"
+  PLUGIN_TMP_FILE="/tmp/$PROJECT_NAME.tgz"
   echo "Downloading $DOWNLOAD_URL"
   curl -L "$DOWNLOAD_URL" -o "$PLUGIN_TMP_FILE"
 }
@@ -18,10 +20,10 @@ installFile() {
   mkdir -p "$HELM_TMP"
   tar xf "$PLUGIN_TMP_FILE" -C "$HELM_TMP"
   HELM_TMP_BIN="$HELM_TMP/untt"
-  echo "Preparing to install into ${HELM_PLUGIN_PATH}"
+  echo "Preparing to install into $HELM_PLUGIN_DIR"
   # Use * to also copy the file withe the exe suffix on Windows
   cp "$HELM_TMP_BIN"* "$HELM_PLUGIN_DIR"
-  echo "helm-unittest installed into $HELM_PLUGIN_DIR"
+  echo "$PROJECT_NAME installed into $HELM_PLUGIN_DIR"
 }
 
 # fail_trap is executed if an error occurs.
