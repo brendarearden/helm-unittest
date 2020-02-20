@@ -20,10 +20,10 @@ installFile() {
   mkdir -p "$HELM_TMP"
   tar xf "$PLUGIN_TMP_FILE" -C "$HELM_TMP"
   HELM_TMP_BIN="$HELM_TMP/untt"
-  echo "Preparing to install into $HELM_PLUGIN_DIR"
+  echo "Preparing to install into ${HELM_PLUGIN_DIR}"
   # Use * to also copy the file withe the exe suffix on Windows
-  cp "$HELM_TMP_BIN"* "$HELM_PLUGIN_DIR"
-  echo "$PROJECT_NAME installed into $HELM_PLUGIN_DIR"
+  cp "$HELM_TMP_BIN"* "${HELM_PLUGIN_DIR}"
+  echo "$PROJECT_NAME installed into ${HELM_PLUGIN_DIR}"
 }
 
 # fail_trap is executed if an error occurs.
@@ -40,7 +40,7 @@ fail_trap() {
 testVersion() {
   # To avoid to keep track of the Windows suffix,
   # call the plugin assuming it is in the PATH
-  PATH=$PATH:$HELM_PLUGIN_PATH
+  PATH=$PATH:${HELM_PLUGIN_PATH}
   untt -h
 }
 
